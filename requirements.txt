@@ -1,4 +1,5 @@
 pyowm==2.0.0
+requests
 
 # Test requirements
 mock==1.0.1
