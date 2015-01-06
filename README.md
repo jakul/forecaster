@@ -75,7 +75,13 @@ Forecaster depends on [Requests][requests] to run, and [py.test][pytest], [tox][
 Use [pip][pip]!
 
 ```
-pip install https://github.com/jakul/forecaster/archive/master.zip
+pip install git+https://github.com/jakul/forecaster.git
+```
+
+Or to get a specific version
+
+```
+pip install git+https://github.com/jakul/forecaster.git@version-0.0.1
 ```
 
 # Development

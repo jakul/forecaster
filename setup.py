@@ -6,16 +6,16 @@ from forecaster import VERSION
 setup(
     name='forecaster',
     version=VERSION,
-    description='Forecaster lets you find out what the weather will be where you are using the openweathermap.org REST API',
+    description=(
+        'Forecaster lets you find out what the weather will be where you are '
+        'using the openweathermap.org REST API'
+    ),
     author='Craig Blaszczyk',
     author_email='masterjakul@gmail.com',
     url='https://github.com/jakul/forecaster',
     license='BSD',
     packages=find_packages(),
-    package_data = {
-        '': ['version.txt',]
-    },
-    install_requires=open('requirements.txt').read(),
+    install_requires=[],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
