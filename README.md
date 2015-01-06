@@ -5,7 +5,7 @@
 Forecaster lets you find out what the weather will be where you are using the [openweathermap.org REST API][openweathermap-rest-api].
 
 # Support
-Forecaster depends on [PyOWM][pyowm] to run, and [py.test][pytest] , [tox][tox] and [mock][mock] for test running. Forecaster runs on Python 2.6 and 2.7.
+Forecaster depends on [Requests][requests] to run, and [py.test][pytest], [tox][tox] and [mock][mock] for test running. Forecaster runs on Python 2.6 and 2.7.
 
 # How to use
 ```python
@@ -105,7 +105,6 @@ You can also use the excellent [`tox`][tox] testing tool to run the tests agains
 [tox]: https://tox.readthedocs.org/en/latest/
 [build-status-image]: https://travis-ci.org/jakul/forecaster.svg?branch=master
 [travis-url]: https://travis-ci.org/jakul/forecaster
-[pyowm]: https://github.com/csparpa/pyowm
 [pytest]: http://pytest.org/latest/
 [mock]: https://pypi.python.org/pypi/mock
 [make-a-pull-request]: https://help.github.com/articles/creating-a-pull-request/
