@@ -2,7 +2,6 @@ from setuptools import setup, find_packages
 
 from forecaster import VERSION
 
-
 setup(
     name='forecaster',
     version=VERSION,
@@ -15,6 +14,9 @@ setup(
     url='https://github.com/jakul/forecaster',
     license='BSD',
     packages=find_packages(),
+    package_data = {
+        '': ['version.txt',]
+    },
     install_requires=[],
     classifiers=[
         'Environment :: Web Environment',
