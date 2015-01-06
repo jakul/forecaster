@@ -1,3 +1,4 @@
+# coding: utf-8
 from unittest import TestCase
 from mock import patch, Mock, MagicMock
 from forecaster import forecast
@@ -21,7 +22,6 @@ class GetForecastTest(TestCase):
     @patch('requests.get')
     def test_get_forecast(self, mock_requests):
         # Do some setup
-
         mock_requests.side_effect = GetForecastTest._valid_response
 
         # Run the code
@@ -30,12 +30,22 @@ class GetForecastTest(TestCase):
         # Check the response
         assert data, GetForecastTest.valid_content
 
+    @patch('requests.get')
     def test_non_ascii_place_name(self, mock_requests):
-        pass
+        # Do some setup
+        mock_requests.side_effect = GetForecastTest._valid_response
 
+        # Run the code
+        data = forecast.get_forecast(u'Águeda')
+
+        # Check the response
+        assert data, GetForecastTest.valid_content
+
+    @patch('requests.get')
     def test_num_days(self, mock_requests):
         pass
 
+    @patch('requests.get')
     def test_units(self, mock_requests):
         pass
 
@@ -43,18 +53,21 @@ class GetForecastTest(TestCase):
     def test_bad_url(self, mock_requests):
         pass
 
+    @patch('requests.get')
     def test_not_json(self, mock_requests):
         pass
 
+    @patch('requests.get')
     def test_unknown_place(self, mock_requests):
         pass
 
 
-class SumamriseForecastTest(TestCase):
+class SumamariseForecastTest(TestCase):
     """
     Tests for summarise_forecast function
     """
 
+    @patch('requests.get')
     def test_good_args(self, mock_requests):
         # Check min, max, dates, weathers, etc
         pass
