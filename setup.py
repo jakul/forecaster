@@ -15,7 +15,7 @@ setup(
     package_data = {
         '': ['version.txt',]
     },
-    install_requires=[],
+    install_requires=open('requirements.txt').read(),
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
