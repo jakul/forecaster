@@ -369,19 +369,49 @@ class SummariseForecastTest(TestCase):
          u'id': 800,
          u'main': u'Clear'}]}],
      u'message': 0.0145}
-
-    @classmethod
-    def _valid_response(*args, **kwargs):
-        response = Mock()
-        response.status_code = 200
-        response.content = SummariseForecastTest.valid_content
-        response.json = Mock(return_value=SummariseForecastTest.valid_content)
-        return response
+    multiple_weathers_in_a_day = {u'city': {u'coord': {u'lat': 40.4165, u'lon': -3.70256},
+      u'country': u'ES',
+      u'id': 3117735,
+      u'name': u'Madrid',
+      u'population': 0,
+      u'sys': {u'population': 0}},
+     u'cnt': 1,
+     u'cod': u'200',
+     u'list': [{u'clouds': 24,
+       u'deg': 298,
+       u'dt': 1420545600,
+       u'humidity': 74,
+       u'pressure': 965.54,
+       u'speed': 2.72,
+       u'temp': {u'day': 26.26,
+        u'eve': 26.26,
+        u'max': 26.26,
+        u'min': 24.15,
+        u'morn': 26.26,
+        u'night': 24.15},
+       u'weather': [{u'description': u'few clouds',
+         u'icon': u'02n',
+         u'id': 801,
+         u'main': u'Clouds'},
+        {u'description': u'light rain',
+         u'icon': u'10d',
+         u'id': 500,
+         u'main': u'Rain'}]}],
+     u'message': 0.0126}
 
     @patch('requests.get')
     def test_summarise_forecast(self, mock_requests):
         # Do some setup
-        mock_requests.side_effect = SummariseForecastTest._valid_response
+        def side_effect(*args, **kwargs):
+            response = Mock()
+            response.status_code = 200
+            response.content = SummariseForecastTest.valid_content
+            response.json = Mock(
+                return_value=SummariseForecastTest.valid_content
+            )
+            return response
+
+        mock_requests.side_effect = side_effect
 
         # Run the code
         summary = forecast.summarise_forecast('Lisbon')
@@ -402,4 +432,32 @@ class SummariseForecastTest(TestCase):
             }
         }
 
-        assert summary, expected_summary
+        assert summary==expected_summary
+
+    @patch('requests.get')
+    def test_multiple_weathers(self, mock_requests):
+        # Do some setup
+        def side_effect(*args, **kwargs):
+            response = Mock()
+            response.status_code = 200
+            response.content = SummariseForecastTest.multiple_weathers_in_a_day
+            response.json = Mock(
+                return_value=SummariseForecastTest.multiple_weathers_in_a_day
+            )
+            return response
+
+        mock_requests.side_effect = side_effect
+
+        # Run the code
+        summary = forecast.summarise_forecast('Madrid')
+
+        # Check the response
+        expected_summary = {
+            'city': 'Madrid', 'max': 26.26, 'min': 24.15,
+            'forecasts': {
+                'Clouds': ['2015-01-06'],
+                'Rain': ['2015-01-06']
+            }
+        }
+
+        assert summary==expected_summary
