@@ -1,19 +1,6 @@
 # coding: utf-8
-import pyowm
 import requests
-import json
 from forecaster import ForecasterException
-
-owm = pyowm.OWM()
-
-def get_min_temp(location, num_days=None):
-    if num_days is None:
-        num_days = 14
-    forecast = owm.daily_forecast(location, limit=num_days)
-    weathers = forecast.get_forecast().get_weathers()
-    for weather in weathers:
-        print(weather.get_temperature()['min'])
-
 
 def get_forecast(location, num_days=None, mode=None, units=None):
     # TODO: cache the result for 10 minutes, as recommend by OWM
@@ -58,5 +45,4 @@ def get_forecast(location, num_days=None, mode=None, units=None):
     return data
 
 if __name__ == '__main__':
-    get_min_temp('London')
     get_forecast(u'Águeda')
