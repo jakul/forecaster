@@ -17,7 +17,8 @@ setup(
     package_data = {
         '': ['version.txt',]
     },
-    install_requires=open('requirements.txt').read(),
+    #TODO: auto read this from requirements.txt
+    install_requires=['requests',],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
