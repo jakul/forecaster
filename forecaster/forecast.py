@@ -47,8 +47,8 @@ def get_forecast(location, num_days=None, units=None):
     # location asked for
     if 'cod' not in data or data['cod'] != '200':
         raise ForecasterException(
-            'OpenWeatherMapAPI returned 200 status code but with no content',
-            response.content, url
+            'OpenWeatherMapAPI returned 200 status code but with no useful '
+            'content', response.content, url
         )
 
     return data
@@ -62,19 +62,21 @@ def summarise_forecast(location):
     forecast = get_forecast(location)
     summary = {'city': location, 'forecasts': defaultdict(set)}
 
+    # Set the initial min and max to be that of the the first forecast
     summary['min'] = forecast[u'list'][0][u'temp'][u'min']
     summary['max'] = forecast[u'list'][0][u'temp'][u'max']
-    for weather in (forecast['list']):
-        summary['min'] = min(weather[u'temp'][u'min'], summary['min'])
-        summary['max'] = max(weather[u'temp'][u'max'], summary['max'])
+    for day_forecast in (forecast['list']):
+        # Update the min and max temperatures
+        summary['min'] = min(day_forecast[u'temp'][u'min'], summary['min'])
+        summary['max'] = max(day_forecast[u'temp'][u'max'], summary['max'])
         date = datetime.datetime.fromtimestamp(
-            weather[u'dt']
+            day_forecast[u'dt']
         ).strftime('%Y-%m-%d')
-        for weather_ in weather[u'weather']:
+        for weather in day_forecast[u'weather']:
             # Note: There is a unicode to string conversion here, which would
             # cause problems if any of the weather types used non-ascii
             # characters
-            summary['forecasts'][str(weather_[u'main'])].add(date)
+            summary['forecasts'][str(weather[u'main'])].add(date)
 
     # Convert the forecasts to the expected output format
     summary['forecasts'] = dict(summary['forecasts'])
