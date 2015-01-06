@@ -81,6 +81,6 @@ def summarise_forecast(location):
     # Convert the forecasts to the expected output format
     summary['forecasts'] = dict(summary['forecasts'])
     for weather_type, dates in summary['forecasts'].items():
-        summary['forecasts'][weather_type] = list(dates)
+        summary['forecasts'][weather_type] = sorted(list(dates))
 
     return summary
