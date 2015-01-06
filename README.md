@@ -2,7 +2,7 @@
 
 [![build-status-image]][travis-url]
 
-Forecaster is a script which let's you find out what the weather will be where you are using the [openweathermap.org REST API][openweathermap-rest-api].
+Forecaster lets you find out what the weather will be where you are using the [openweathermap.org REST API][openweathermap-rest-api].
 
 # Support
 Forecaster depends on [PyOWM][pyowm] to run, and [py.test][pytest] , [tox][tox] and [mock][mock] for test running. Forecaster runs on Python 2.6 and 2.7.
