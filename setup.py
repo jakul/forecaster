@@ -1,6 +1,14 @@
 from setuptools import setup, find_packages
+import sys
+import os
 
 from forecaster import VERSION
+
+
+if sys.argv[-1] == 'tag-version':
+    os.system("git tag -a %s -m 'version %s'" % (VERSION, VERSION))
+    os.system("git push --tags")
+    sys.exit()
 
 setup(
     name='forecaster',
