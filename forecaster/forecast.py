@@ -55,9 +55,14 @@ def get_forecast(location, num_days=None, units=None):
 
 def summarise_forecast(location):
     """
+    Return a summary forecast for a given location.
 
-    :param location:
-    :return:
+    :param location: Where to find the forecast of
+    :return: A dict containing city name, the different types, e.g.
+        {'city': 'London', 'max': 55.02, 'min': 33.26, 'forecasts': {
+            'Clear': ['2015-01-11', '2015-01-12'],
+            'Clouds': ['2015-01-12']
+        }}
     """
     forecast = get_forecast(location)
     summary = {'city': location, 'forecasts': defaultdict(set)}
